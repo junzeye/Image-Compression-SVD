@@ -9,7 +9,11 @@ def svd_compress(mat: np.ndarray, ratio: float):
     in the original photo, corresponding to U, Sigma, V as they appear in the SVD
     formula.
     '''
-    channels_cnt = mat.shape[2] # count the number of channels in the photo matrix
+    try:
+        channels_cnt = mat.shape[2] # count the number of channels in the photo matrix
+    except:
+        channels_cnt = 1 # in case we get a grayscale image with no alpha, do this
+        mat = mat[:,:,np.newaxis]
     L = [None] * channels_cnt
     for i in range(channels_cnt):
         L[i] = mat[:,:,i]

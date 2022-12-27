@@ -14,7 +14,8 @@ parser.add_argument('--as_gray', action = 'store_true')
 # args = parser.parse_args()
 
 # For testing
-args = parser.parse_args(['--ratio', '0.3', '--fname', 'conway.jpg', '--as_gray'])
+# args = parser.parse_args(['--ratio', '0.3', '--fname', 'conway.jpg', '--as_gray'])
+args = parser.parse_args()
 
 img = io.imread(args.fname, as_gray = args.as_gray)
 im2arr = img_as_float(img) # dimensions: height x width x channel
@@ -40,13 +41,16 @@ for i in range(channels_cnt):
 
 if channels_cnt == 4 or channels_cnt == 2: # if there is an alpha channel
     alphas = np.clip(color_matrices[:,:,-1], 0, 1)
-    plt.imshow(X = np.clip(color_matrices[:,:,:-1], 0 , 1), alpha = alphas)
+    if args.as_gray:
+        plt.imshow(X = np.clip(color_matrices[:,:,:-1], 0 , 1), cmap = 'gray', alpha = alphas)
+    else:
+        plt.imshow(X = np.clip(color_matrices[:,:,:-1], 0 , 1), alpha = alphas)
 else:
-    plt.imshow(np.clip(color_matrices, 0 , 1))
+    if args.as_gray:
+        plt.imshow(np.clip(color_matrices, 0 , 1), cmap = 'gray')
+    else:
+        plt.imshow(np.clip(color_matrices, 0 , 1))
 
 plt.show()
 
 # plt.imsave(fname = 'out.png', arr = np.clip(color_matrices, 0, 1), format = 'png') # to save image, use this.
-
-# ISSUES
-# grayscale image displayed as RGB under matplotlib.

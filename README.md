@@ -6,11 +6,11 @@ Image Compression Using Low-Rank Matrix Approximation
 
 ## Introduction
 
-This repository is based on a class project I completed in Professor [Amir Ali Ahmadi](https://aaa.princeton.edu)'s course on computational and convex optimization (ORF363, 2021 Fall). The data compression algorithm I implemented reduces the size of a computer image by approximating the original color matrix as the product of three matrices that are much smaller.
+This repository is based on a class project I completed in Professor [Amir Ali Ahmadi](https://aaa.princeton.edu)'s course on __computational linear algebra__ and __convex optimization__ (ORF363, 2021 Fall). The data compression algorithm I implemented reduces the size of a computer image by approximating the original color matrix as the product of three matrices that are much smaller.
 
 ## Theory
 
-Let $A$ be an $m \times n$ matrix of rank $r$. After singular value decomposition, we have $$A=U \Sigma V^T,$$ where the dimensions of $U, \Sigma,$ and $V$ are respectively $m \times m$, $m \times n$ and $n \times n$. Specifically, $\Sigma$ is a matrix whose upper left $r \times r$ block is a diagonal matrix with $r$ positive scalars $\sigma_1, \sigma_2, \dots, \sigma_r$, and zero everywhere else. By convention, we may let $\sigma_1 \geq \sigma_2 \geq \dots \sigma_r$.
+Let $A$ be an $m \times n$ matrix of rank $r$. After singular value decomposition (SVD), we have $$A=U \Sigma V^T,$$ where the dimensions of $U, \Sigma,$ and $V$ are respectively $m \times m$, $m \times n$ and $n \times n$. Specifically, $\Sigma$ is a matrix whose upper left $r \times r$ block is a diagonal matrix with $r$ positive scalars $\sigma_1, \sigma_2, \dots, \sigma_r$, and zero everywhere else. By convention, we may let $\sigma_1 \geq \sigma_2 \geq \dots \sigma_r$.
 
 For any natural number $k \leq \min\{m,n\}$, let $$A_{(k)} = U_{(k)} \Sigma_{(k)} V_{(k)}^T.$$ Here, $U_{(k)}$ are the submatrix of $U$ containing its first $k$ columns, $V_{(k)}$ are the submatrix of $V$ containing its first $k$ columns, whereas $\Sigma_{(k)}$ is the upper left $k \times k$ submatrix of $\Sigma$. As a result of the [Eckart-Young-Mirsky Theorem](https://en.wikipedia.org/wiki/Low-rank_approximation), $A_{(k)}$ is an optimal solution of the minimization problem $$\min_{C \in \mathbb{R}^{m \times n}, \; rank(C) \leq k} ||A - C||_F.$$
 
@@ -25,3 +25,7 @@ cd [pathname to this directory]
 python compress.py --ratio [desired compression ratio] --fname [pathname to image file]
 python compress.py --ratio [desired compression ratio] --fname [pathname to image file] --as_gray # compress a grayscale image
 ```
+
+## Bibliography
+1. Ali Ahmadi, Amir, ORF 363 / COS 323, F21, Princeton University. ([Link](https://aaa.princeton.edu/orf363))
+2. Low-rank approximation. (2022, November 15). Wikipedia. ([Link](https://en.wikipedia.org/wiki/Low-rank_approximation))
